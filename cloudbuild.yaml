@@ -1,11 +1,11 @@
 steps:
 # Build Docker image
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['build', '-t', 'gcr.io/$PROJECT_ID/clouderun-test', '.']
+  args: ['build', '-t', 'gcr.io/$PROJECT_ID/cloudrun-test-service', '.']
 
 # Push image to registry
 - name: 'gcr.io/cloud-builders/docker'
-  args: ['push', 'gcr.io/$PROJECT_ID/clouderun-test']
+  args: ['push', 'gcr.io/$PROJECT_ID/cloudrun-test-service']
 
 # Deploy to Cloud Run
 - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
@@ -13,9 +13,9 @@ steps:
   args:
   - run
   - deploy
-  - clouderun-test
+  - cloudrun-test-service
   - --image
-  - gcr.io/$PROJECT_ID/clouderun-test
+  - gcr.io/$PROJECT_ID/cloudrun-test-service
   - --region
   - europe-west1
   - --platform
@@ -23,7 +23,7 @@ steps:
   - --allow-unauthenticated
 
 images:
-- gcr.io/$PROJECT_ID/clouderun-test
+- gcr.io/$PROJECT_ID/cloudrun-test-service
 
 options:
   logging: CLOUD_LOGGING_ONLY
